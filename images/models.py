@@ -30,3 +30,31 @@ class Profile(models.Model):
         return self.user.username
 
 
+class Image(models.Model):
+    image = models.ImageField(upload_to = 'photos/', default = 'image')
+    name = models.CharField(max_length = 100, blank = True)
+    caption = models.TextField(blank = True)
+    likes = models.PositiveIntegerField(default = 0)
+    date_posted = models.DateTimeField(auto_now_add = True)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+
+    def save_image(self):
+        self.save()
+    
+    def delete_image(self):
+        self.delete()
+
+    @classmethod
+    def get_images(cls):
+        images = cls.objects.order_by('date_posted')
+        return images
+    
+    @classmethod
+    def get_image(cls, id):
+        image = cls.objects.get(id = id)
+        return image
+    
+    def __str__(self):
+        return self.name
+
+
