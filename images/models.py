@@ -58,3 +58,19 @@ class Image(models.Model):
         return self.name
 
 
+class Comment(models.Model):
+    comment = models.CharField(max_length = 150, blank = True)
+    date_commented = models.DateTimeField(auto_now_add = True)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+    image = models.ForeignKey(Image)
+
+    def save_comment(self):
+        self.save()
+
+    def delete_comment(self):
+        self.delete()
+    
+    def __str__(self):
+        return self.comment
+
+
