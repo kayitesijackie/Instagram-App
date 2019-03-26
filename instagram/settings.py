@@ -104,7 +104,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'instagram.wsgi.application'
-LOGIN_REDIRECT_URL = '/home'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
