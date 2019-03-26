@@ -40,7 +40,8 @@ As a user I would like:
 
 ### Installation Process
 ```
-* $ git clone https://github.com/kayitesijackie/Instagram-App.git && cd  Instagram-App
+* $ git clone https://github.com/kayitesijackie/Instagram-App.git 
+* $ cd  Instagram-App
 * $ python3.6 -m venv virtual
 * $ source virtual/bin/activate
 
