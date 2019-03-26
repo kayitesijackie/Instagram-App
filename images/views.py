@@ -7,8 +7,9 @@ from .forms import PostForm
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
-def home(request):
-    images = Image.get_images()
+def index(request):
+    images = Image.objects.all()
+    print(images)
     return render(request, 'index.html', {"images":images})
 
 
@@ -33,7 +34,7 @@ def post(request):
             post = form.save(commit=False)
             post.name = current_user
             post.save()
-            return redirect('home')
+            return redirect('index')
     else:
         form = PostForm()
     return render(request, 'post.html', {"post_form": form})
