@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to = 'profile_pic/', null = True)
-    bio = models.TextField(max_length = 50, blank = True)
+    bio = models.TextField(max_length = 500, blank = True, null = True)
     user = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
 
     def save_profile(self):
@@ -31,11 +31,11 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'photos/', default = 'image')
-    name = models.CharField(max_length = 100, blank = True)
-    caption = models.TextField(blank = True)
-    likes = models.PositiveIntegerField(default = 0)
-    date_posted = models.DateTimeField(auto_now_add = True)
+    image = models.ImageField(upload_to = 'photos/', default = 'image', null = True)
+    name = models.CharField(max_length = 100, blank = True, null = True)
+    caption = models.TextField(blank = True, null = True)
+    likes = models.PositiveIntegerField(default = 0, null = True)
+    date_posted = models.DateTimeField(auto_now_add = True, null = True)
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 
     def save_image(self):
@@ -59,10 +59,10 @@ class Image(models.Model):
 
 
 class Comment(models.Model):
-    comment = models.CharField(max_length = 150, blank = True)
-    date_commented = models.DateTimeField(auto_now_add = True)
+    comment = models.CharField(max_length = 150, blank = True, null = True)
+    date_commented = models.DateTimeField(auto_now_add = True, null = True)
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
-    image = models.ForeignKey(Image)
+    image = models.ForeignKey(Image, null = True)
 
     def save_comment(self):
         self.save()
@@ -75,9 +75,9 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    date_created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name='liker')    
-    image = models.ForeignKey(Image, related_name='liked_post')
+    date_created = models.DateTimeField(auto_now_add=True, null = True)
+    user = models.ForeignKey(User, related_name='liker', null = True)    
+    image = models.ForeignKey(Image, related_name='liked_post', null = True)
 
     def __str__(self):
         return '{} : {}'.format(self.user, self.image)
