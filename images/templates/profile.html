@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
-<div class="container mt-2 ">
+{{block.super}}
+<div class="container">
   <div class="row">
     <div class="col- mx-auto p-5 mt-2" style="background-color:#ffffff; border: 1px solid #e6e6e6;">
       {% for profile in profiles %}
@@ -15,13 +16,5 @@
     </div>
   </div>
 </div>
-<div class="container mt-5">
-  <div class="row">
-    {% for img in images %}
-    <div class="col-4 m-2">
-      <img src="https://cdn1.iconfinder.com/data/icons/free-98-icons/32/user-128.png" alt="" class="img-fluid">
-    </div>
-    {% endfor %}
-  </div>
-</div>
+
 {% endblock %}
