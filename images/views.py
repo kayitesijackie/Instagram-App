@@ -17,8 +17,11 @@ def index(request):
 def profile(request):
     current_user = request.user
     profile = Profile.objects.all()
-
-    return render(request, 'profile.html', {"current_user": current_user, "profile": profile})
+    prof =None
+    for image in profile:
+        image=image.profile_pic
+        print(image)
+    return render(request, 'profile.html', {"current_user": current_user,'image':image})
 
 
 @login_required(login_url='/accounts/login/')
@@ -41,19 +44,14 @@ def post(request):
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
-    if 'query' in request.GET and request.GET['query']:
-        search_term = request.GET.get("query")
-        user = Profile.search_profiles(search_term)
-        images = Image.objects.all()
+  
+    if 'profile' in request.GET and request.GET['profile']:
+        search_term = request.GET.get("profile")
+        searched_profiles = Profile.search_profiles(search_term)
         message = f"{search_term}"
-
-        content = {
-            "message": message,
-            "found": user,
-            "images": images,
-        }
-
-        return render(request, 'search.html', content)
+        
+        print(search_term)
+        return render(request, 'search.html', {"message":message,"profiles": searched_profiles})
     else:
         message = "You haven't searched for anyone"
         return render(request, 'search.html', {"message": message})

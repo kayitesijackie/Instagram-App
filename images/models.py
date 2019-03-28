@@ -23,8 +23,8 @@ class Profile(models.Model):
         return profiles
 
     @classmethod
-    def search_profiles(cls, query):
-        profile = cls.objects.filter(user__username__icontains=query)
+    def search_profiles(cls, search_term):
+        profile = cls.objects.filter(user__username__icontains=search_term)
         return profile
 
     def __str__(self):
@@ -32,7 +32,7 @@ class Profile(models.Model):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'photos/', default = 'image', null = True)
+    image = models.ImageField(upload_to = 'photos/', null = True)
     name = models.CharField(max_length = 100, blank = True, null = True)
     caption = models.TextField(blank = True, null = True)
     likes = models.PositiveIntegerField(default = 0, null = True)
@@ -57,6 +57,11 @@ class Image(models.Model):
     
     def __str__(self):
         return self.name
+
+    # @classmethod
+    # def search_by_name(cls,search_term):
+    #     photos = cls.objects.filter(name__icontains=search_term)
+    #     return photos
 
 
 class Comment(models.Model):
